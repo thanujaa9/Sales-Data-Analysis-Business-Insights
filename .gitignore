@@ -1,0 +1,25 @@
+# Python virtual environments and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+*.so
+
+# Environment configuration
+.env
+
+# Jupyter / Scratch
+.ipynb_checkpoints/
+scratch/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Editor artifacts
+.idea/
+.vscode/
+*.swp
+*.swo
