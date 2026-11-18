@@ -243,11 +243,11 @@ def run_full_analysis() -> Dict[str, Any]:
     print("\n" + "="*70)
     print(" EXECUTIVE SALES KPIS")
     print("="*70)
-    print(f"Total Revenue:       ${kpis['total_revenue']:,.2f}")
+    print(f"Total Revenue:       {kpis['total_revenue']:,.2f}")
     print(f"Total Orders:        {kpis['total_orders']:,}")
     print(f"Unique Customers:    {kpis['unique_customers']:,}")
     print(f"Total Units Sold:    {kpis['total_units_sold']:,}")
-    print(f"Average Order Value: ${kpis['avg_order_value']:,.2f}")
+    print(f"Average Order Value: {kpis['avg_order_value']:,.2f}")
 
     print("\n" + "="*70)
     print(" REVENUE BY PRODUCT CATEGORY")

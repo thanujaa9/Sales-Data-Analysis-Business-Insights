@@ -82,7 +82,7 @@ def plot_monthly_revenue_trend(df: pd.DataFrame, output_dir: str = "reports/figu
 
     # Plot revenue line
     ax1.plot(x, y, color=COLOR_CYAN, linewidth=2.8, marker="o", markersize=6, 
-             label="Monthly Revenue ($)", zorder=4)
+             label="Monthly Revenue", zorder=4)
     ax1.fill_between(x, y, color=COLOR_CYAN, alpha=0.15, zorder=3)
 
     # Highlight max and min months
@@ -90,7 +90,7 @@ def plot_monthly_revenue_trend(df: pd.DataFrame, output_dir: str = "reports/figu
     min_idx = y.idxmin()
 
     ax1.annotate(
-        f"Peak: ${y[max_idx]:,.0f}",
+        f"Peak: {y[max_idx]:,.0f}",
         xy=(x[max_idx], y[max_idx]),
         xytext=(0, 15), textcoords="offset points",
         ha="center", fontsize=10, fontweight="bold",
@@ -99,7 +99,7 @@ def plot_monthly_revenue_trend(df: pd.DataFrame, output_dir: str = "reports/figu
     )
 
     ax1.annotate(
-        f"Low: ${y[min_idx]:,.0f}",
+        f"Low: {y[min_idx]:,.0f}",
         xy=(x[min_idx], y[min_idx]),
         xytext=(0, -25), textcoords="offset points",
         ha="center", fontsize=10, fontweight="bold",
@@ -107,10 +107,10 @@ def plot_monthly_revenue_trend(df: pd.DataFrame, output_dir: str = "reports/figu
         arrowprops=dict(arrowstyle="->", color=COLOR_ROSE, lw=1.5)
     )
 
-    ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda val, pos: f"${val*1e-3:.0f}K"))
+    ax1.yaxis.set_major_formatter(ticker.FuncFormatter(lambda val, pos: f"{val*1e-3:.0f}K"))
     ax1.set_title("Monthly Revenue Trajectory (2023)", fontsize=16, fontweight="bold", pad=20)
     ax1.set_xlabel("Month", fontsize=12, labelpad=10)
-    ax1.set_ylabel("Revenue (USD)", fontsize=12, labelpad=10)
+    ax1.set_ylabel("Revenue", fontsize=12, labelpad=10)
     plt.xticks(rotation=45)
 
     plt.tight_layout()
@@ -150,7 +150,7 @@ def plot_category_distribution(df: pd.DataFrame, output_dir: str = "reports/figu
         autotext.set_fontweight("bold")
 
     total_revenue = df["category_revenue"].sum()
-    ax.text(0, 0, f"Total\n${total_revenue*1e-3:.0f}K", ha="center", va="center",
+    ax.text(0, 0, f"Total\n{total_revenue*1e-3:.0f}K", ha="center", va="center",
             fontsize=13, fontweight="bold", color=TEXT_LIGHT)
 
     ax.set_title("Revenue Share by Product Category", fontsize=16, fontweight="bold", color=TEXT_LIGHT, pad=20)
@@ -180,13 +180,13 @@ def plot_top_products(df: pd.DataFrame, output_dir: str = "reports/figures") -> 
     for bar in bars:
         width = bar.get_width()
         ax.text(width + 3000, bar.get_y() + bar.get_height() / 2,
-                f"${width:,.0f}",
+                f"{width:,.0f}",
                 va="center", ha="left", fontsize=9.5, fontweight="semibold", color=TEXT_LIGHT)
 
-    ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda val, pos: f"${val*1e-3:.0f}K"))
+    ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda val, pos: f"{val*1e-3:.0f}K"))
     ax.set_xlim(0, df_sorted["total_revenue"].max() * 1.15)
     ax.set_title("Top 10 Products by Total Revenue", fontsize=16, fontweight="bold", pad=20)
-    ax.set_xlabel("Total Revenue (USD)", fontsize=12, labelpad=10)
+    ax.set_xlabel("Total Revenue", fontsize=12, labelpad=10)
 
     plt.tight_layout()
     plt.savefig(out_path, facecolor=BG_DARK, edgecolor="none")
@@ -210,13 +210,13 @@ def plot_regional_performance(df: pd.DataFrame, output_dir: str = "reports/figur
     for bar in bars:
         width = bar.get_width()
         ax.text(width + 2000, bar.get_y() + bar.get_height() / 2,
-                f"${width:,.0f}",
+                f"{width:,.0f}",
                 va="center", ha="left", fontsize=9.5, fontweight="semibold", color=TEXT_LIGHT)
 
-    ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda val, pos: f"${val*1e-3:.0f}K"))
+    ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda val, pos: f"{val*1e-3:.0f}K"))
     ax.set_xlim(0, df_sorted["total_revenue"].max() * 1.15)
     ax.set_title("Top 10 Cities by Revenue Performance", fontsize=16, fontweight="bold", pad=20)
-    ax.set_xlabel("Revenue (USD)", fontsize=12, labelpad=10)
+    ax.set_xlabel("Revenue", fontsize=12, labelpad=10)
 
     plt.tight_layout()
     plt.savefig(out_path, facecolor=BG_DARK, edgecolor="none")
@@ -261,10 +261,10 @@ def generate_executive_dashboard(
 
     # KPI Metric Cards
     kpi_cards = [
-        ("TOTAL REVENUE", f"${kpis['total_revenue']:,.2f}", COLOR_CYAN),
+        ("TOTAL REVENUE", f"{kpis['total_revenue']:,.2f}", COLOR_CYAN),
         ("TOTAL ORDERS", f"{kpis['total_orders']:,}", COLOR_BLUE),
         ("UNITS SOLD", f"{kpis['total_units_sold']:,}", COLOR_EMERALD),
-        ("AVG ORDER VALUE", f"${kpis['avg_order_value']:.2f}", COLOR_AMBER),
+        ("AVG ORDER VALUE", f"{kpis['avg_order_value']:.2f}", COLOR_AMBER),
     ]
 
     card_x_positions = [0.50, 0.63, 0.76, 0.89]
@@ -280,7 +280,7 @@ def generate_executive_dashboard(
     y = monthly_df["revenue"]
     ax_trend.plot(x, y, color=COLOR_CYAN, marker="o", linewidth=2.4, zorder=4)
     ax_trend.fill_between(x, y, color=COLOR_CYAN, alpha=0.18, zorder=3)
-    ax_trend.yaxis.set_major_formatter(ticker.FuncFormatter(lambda v, p: f"${v*1e-3:.0f}K"))
+    ax_trend.yaxis.set_major_formatter(ticker.FuncFormatter(lambda v, p: f"{v*1e-3:.0f}K"))
     ax_trend.set_title("Monthly Revenue Trajectory", fontsize=13, fontweight="bold", pad=12)
     ax_trend.tick_params(axis="x", rotation=45, labelsize=8.5)
 
@@ -311,7 +311,7 @@ def generate_executive_dashboard(
     p_top = top_products_df.sort_values(by="total_revenue", ascending=True).tail(5)
     bars_p = ax_prod.barh(p_top["product_name"], p_top["total_revenue"], color=COLOR_BLUE, height=0.6, zorder=3)
     bars_p[-1].set_color(COLOR_CYAN)
-    ax_prod.xaxis.set_major_formatter(ticker.FuncFormatter(lambda v, p: f"${v*1e-3:.0f}K"))
+    ax_prod.xaxis.set_major_formatter(ticker.FuncFormatter(lambda v, p: f"{v*1e-3:.0f}K"))
     ax_prod.set_title("Top 5 Revenue Generators", fontsize=13, fontweight="bold", pad=12)
 
     # 5. Top 5 Regional Cities (Bottom Right)
@@ -319,7 +319,7 @@ def generate_executive_dashboard(
     setup_dark_style(fig, [ax_reg])
     r_top = regional_df.head(5).sort_values(by="total_revenue", ascending=True)
     ax_reg.barh(r_top["city"], r_top["total_revenue"], color=COLOR_VIOLET, height=0.6, zorder=3)
-    ax_reg.xaxis.set_major_formatter(ticker.FuncFormatter(lambda v, p: f"${v*1e-3:.0f}K"))
+    ax_reg.xaxis.set_major_formatter(ticker.FuncFormatter(lambda v, p: f"{v*1e-3:.0f}K"))
     ax_reg.set_title("Top 5 Cities by Revenue", fontsize=13, fontweight="bold", pad=12)
 
     plt.savefig(out_path, facecolor=BG_DARK, edgecolor="none", bbox_inches="tight")

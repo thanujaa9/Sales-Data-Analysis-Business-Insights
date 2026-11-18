@@ -52,7 +52,7 @@ def run_pipeline():
     print(f"  ✓ Dropped {audit['duplicates_removed']:,} duplicates.")
     print(f"  ✓ Dropped {audit['missing_or_null_dropped']:,} records with missing keys.")
     print(f"  ✓ Dropped {audit['invalid_numeric_dropped']:,} records with invalid price/quantity.")
-    print(f"  ✓ Final valid records: {audit['final_rows']:,} | Revenue: ${audit['total_revenue']:,.2f}")
+    print(f"  ✓ Final valid records: {audit['final_rows']:,} | Revenue: {audit['total_revenue']:,.2f}")
 
     # Step 2: PostgreSQL Database & Relational ETL (Phase 2)
     print("\n[PHASE 2] Initializing PostgreSQL schema & executing relational ETL...")

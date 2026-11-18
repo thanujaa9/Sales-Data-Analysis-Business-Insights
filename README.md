@@ -183,9 +183,9 @@ ORDER BY monetary_total DESC;
 
 | Analysis | Visualization | Key Takeaway |
 | :--- | :--- | :--- |
-| **Monthly Trajectory** | ![Monthly Trend](reports/figures/monthly_revenue_trend.png) | Sales peaked in Q1 ($101K) and Q4 ($94K), with a seasonal slowdown in Q2 requiring promotional mitigation. |
+| **Monthly Trajectory** | ![Monthly Trend](reports/figures/monthly_revenue_trend.png) | Sales peaked in Q1 (101K) and Q4 (94K), with a seasonal slowdown in Q2 requiring promotional mitigation. |
 | **Category Distribution** | ![Category Share](reports/figures/category_revenue.png) | **Computers** dominate top-line revenue (29.8%), followed by **Office Supplies** (18.2%) and **Home & Kitchen** (18.2%). |
-| **Hero Products** | ![Top Products](reports/figures/top_products.png) | The *Pro Laptop 15-inch* ($219K) and *Motorized Standing Desk* ($106K) drive over 34% of cumulative sales. |
+| **Hero Products** | ![Top Products](reports/figures/top_products.png) | The *Pro Laptop 15-inch* (219K) and *Motorized Standing Desk* (106K) drive over 34% of cumulative sales. |
 | **Regional Sales** | ![Regional Performance](reports/figures/regional_performance.png) | Top revenue centers include Chicago, Austin, and San Francisco, highlighting prime targets for localized logistics. |
 
 ---

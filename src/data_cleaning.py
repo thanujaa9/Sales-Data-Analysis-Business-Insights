@@ -127,7 +127,7 @@ def clean_sales_data(
     audit_metrics["total_revenue"] = total_revenue
 
     logger.info(f"Data cleaning complete! Valid clean records: {final_rows:,}")
-    logger.info(f"Total processed revenue: ${total_revenue:,.2f}")
+    logger.info(f"Total processed revenue: {total_revenue:,.2f}")
 
     # Ensure output directory exists and save
     os.makedirs(os.path.dirname(output_file), exist_ok=True)

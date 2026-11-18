@@ -74,13 +74,13 @@ During the analyzed operating period, the business achieved consistent transacti
 
 | Metric | Value | Business Significance |
 | :--- | :--- | :--- |
-| **Total Revenue** | **${kpis['total_revenue']:,.2f}** | Cumulative gross sales across all completed orders |
+| **Total Revenue** | **{kpis['total_revenue']:,.2f}** | Cumulative gross sales across all completed orders |
 | **Total Completed Orders** | **{kpis['total_orders']:,}** | Total processed commercial orders |
 | **Unique Customers** | **{kpis['unique_customers']:,}** | Distinct purchasing customer base |
 | **Total Units Sold** | **{kpis['total_units_sold']:,}** | Aggregate inventory units moved |
-| **Average Order Value (AOV)** | **${kpis['avg_order_value']:,.2f}** | Average spend per customer basket |
+| **Average Order Value (AOV)** | **{kpis['avg_order_value']:,.2f}** | Average spend per customer basket |
 | **Top Category Contribution** | **{top_cat['category']} ({top_cat['revenue_share_pct']}%)** | Primary revenue driver across product portfolio |
-| **Hero Product** | **{top_prod['product_name']}** | Highest grossing SKU generating ${top_prod['total_revenue']:,.2f} |
+| **Hero Product** | **{top_prod['product_name']}** | Highest grossing SKU generating {top_prod['total_revenue']:,.2f} |
 
 ---
 
@@ -94,12 +94,12 @@ During the analyzed operating period, the business achieved consistent transacti
 
 The catalog is divided into 5 core merchandise segments. **{top_cat['category']}** generated the highest overall revenue share, followed by **{category_df.iloc[1]['category']}** and **{category_df.iloc[2]['category']}**.
 
-| Product Category | Orders Count | Units Sold | Total Revenue (USD) | Revenue Share (%) |
+| Product Category | Orders Count | Units Sold | Total Revenue | Revenue Share (%) |
 | :--- | :---: | :---: | :---: | :---: |
 """
 
     for _, row in category_df.iterrows():
-        md_content += f"| **{row['category']}** | {int(row['orders_count']):,} | {int(row['units_sold']):,} | ${row['category_revenue']:,.2f} | {row['revenue_share_pct']:.2f}% |\n"
+        md_content += f"| **{row['category']}** | {int(row['orders_count']):,} | {int(row['units_sold']):,} | {row['category_revenue']:,.2f} | {row['revenue_share_pct']:.2f}% |\n"
 
     md_content += """
 ![Category Revenue](figures/category_revenue.png)
@@ -110,12 +110,12 @@ The catalog is divided into 5 core merchandise segments. **{top_cat['category']}
 
 High-ticket electronics and premium computing equipment disproportionately anchor top-line performance, demonstrating strong purchasing power in prosumer segments.
 
-| Rank | Product ID | Product Name | Category | Units Sold | Total Revenue (USD) |
+| Rank | Product ID | Product Name | Category | Units Sold | Total Revenue |
 | :---: | :--- | :--- | :--- | :---: | :---: |
 """
 
     for rank, (_, row) in enumerate(top_products_df.iterrows(), 1):
-        md_content += f"| {rank} | `{row['product_id']}` | {row['product_name']} | {row['category']} | {int(row['units_sold']):,} | ${row['total_revenue']:,.2f} |\n"
+        md_content += f"| {rank} | `{row['product_id']}` | {row['product_name']} | {row['category']} | {int(row['units_sold']):,} | {row['total_revenue']:,.2f} |\n"
 
     md_content += """
 ![Top Products](figures/top_products.png)
@@ -124,13 +124,13 @@ High-ticket electronics and premium computing equipment disproportionately ancho
 
 ## 5. Monthly Revenue Trajectory & Growth Patterns
 
-| Month | Total Orders | Units Sold | Monthly Revenue (USD) | MoM Growth (%) |
+| Month | Total Orders | Units Sold | Monthly Revenue | MoM Growth (%) |
 | :---: | :---: | :---: | :---: | :---: |
 """
 
     for _, row in monthly_df.iterrows():
         mom_str = f"{row['mom_growth_pct']:+.2f}%" if pd.notna(row['mom_growth_pct']) else "Baseline (N/A)"
-        md_content += f"| **{row['sales_month']}** | {int(row['total_orders']):,} | {int(row['total_units']):,} | ${row['revenue']:,.2f} | {mom_str} |\n"
+        md_content += f"| **{row['sales_month']}** | {int(row['total_orders']):,} | {int(row['total_units']):,} | {row['revenue']:,.2f} | {mom_str} |\n"
 
     md_content += """
 ![Monthly Revenue Trend](figures/monthly_revenue_trend.png)
@@ -139,24 +139,24 @@ High-ticket electronics and premium computing equipment disproportionately ancho
 
 ## 6. Top 10 High-Value Customers
 
-| Customer ID | Name | City | State | Total Orders | Total Units | Lifetime Spend (USD) | AOV (USD) |
+| Customer ID | Name | City | State | Total Orders | Total Units | Lifetime Spend | AOV |
 | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
 """
 
     for _, row in top_customers_df.iterrows():
-        md_content += f"| `{row['customer_id']}` | {row['customer_name']} | {row['city']} | {row['state']} | {int(row['total_orders'])} | {int(row['total_items'])} | ${row['lifetime_spend']:,.2f} | ${row['avg_order_value']:,.2f} |\n"
+        md_content += f"| `{row['customer_id']}` | {row['customer_name']} | {row['city']} | {row['state']} | {int(row['total_orders'])} | {int(row['total_items'])} | {row['lifetime_spend']:,.2f} | {row['avg_order_value']:,.2f} |\n"
 
     md_content += """
 ---
 
 ## 7. Regional Market Performance (Top 10 Cities)
 
-| City | Orders Count | Customers Count | Units Sold | Total Revenue (USD) | Avg Order Value |
+| City | Orders Count | Customers Count | Units Sold | Total Revenue | Avg Order Value |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 """
 
     for _, row in regional_df.head(10).iterrows():
-        md_content += f"| **{row['city']}** | {int(row['total_orders']):,} | {int(row['total_customers']):,} | {int(row['units_sold']):,} | ${row['total_revenue']:,.2f} | ${row['avg_order_value']:,.2f} |\n"
+        md_content += f"| **{row['city']}** | {int(row['total_orders']):,} | {int(row['total_customers']):,} | {int(row['units_sold']):,} | {row['total_revenue']:,.2f} | {row['avg_order_value']:,.2f} |\n"
 
     md_content += """
 ![Regional Performance](figures/regional_performance.png)
@@ -284,10 +284,10 @@ def generate_pdf_report(
             Paragraph("<b>AVERAGE ORDER VALUE</b>", cell_normal),
         ],
         [
-            Paragraph(f"<font size=12 color='#06B6D4'><b>${kpis['total_revenue']:,.2f}</b></font>", cell_normal),
+            Paragraph(f"<font size=12 color='#06B6D4'><b>{kpis['total_revenue']:,.2f}</b></font>", cell_normal),
             Paragraph(f"<font size=12 color='#3B82F6'><b>{kpis['total_orders']:,}</b></font>", cell_normal),
             Paragraph(f"<font size=12 color='#10B981'><b>{kpis['total_units_sold']:,}</b></font>", cell_normal),
-            Paragraph(f"<font size=12 color='#F59E0B'><b>${kpis['avg_order_value']:.2f}</b></font>", cell_normal),
+            Paragraph(f"<font size=12 color='#F59E0B'><b>{kpis['avg_order_value']:.2f}</b></font>", cell_normal),
         ]
     ]
 
@@ -320,7 +320,7 @@ def generate_pdf_report(
             Paragraph("<b>Category</b>", cell_bold),
             Paragraph("<b>Orders</b>", cell_bold),
             Paragraph("<b>Units</b>", cell_bold),
-            Paragraph("<b>Revenue (USD)</b>", cell_bold),
+            Paragraph("<b>Revenue</b>", cell_bold),
             Paragraph("<b>Share (%)</b>", cell_bold),
         ]
     ]
@@ -329,7 +329,7 @@ def generate_pdf_report(
             Paragraph(str(row["category"]), cell_normal),
             Paragraph(f"{int(row['orders_count']):,}", cell_normal),
             Paragraph(f"{int(row['units_sold']):,}", cell_normal),
-            Paragraph(f"${row['category_revenue']:,.2f}", cell_normal),
+            Paragraph(f"{row['category_revenue']:,.2f}", cell_normal),
             Paragraph(f"{row['revenue_share_pct']:.2f}%", cell_normal),
         ])
 
@@ -358,7 +358,7 @@ def generate_pdf_report(
             Paragraph(str(row["product_name"]), cell_normal),
             Paragraph(str(row["category"]), cell_normal),
             Paragraph(f"{int(row['units_sold']):,}", cell_normal),
-            Paragraph(f"${row['total_revenue']:,.2f}", cell_normal),
+            Paragraph(f"{row['total_revenue']:,.2f}", cell_normal),
         ])
 
     t_prod = Table(prod_table_data, colWidths=[200, 120, 90, 130])
